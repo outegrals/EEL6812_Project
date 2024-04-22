@@ -77,7 +77,7 @@ def shred_document(image_path, output_folder, noise_factor, shred_type):
 
 if __name__ == "__main__":
     noise_factor = 0.1  # factor for adding noise to the edges
-    shred_type = 'crosscut' 
+    shred_type = 'crosscut'  # crosscut or strip
     
     # source and destination directories
     source_dir = 'documents_to_shred'
