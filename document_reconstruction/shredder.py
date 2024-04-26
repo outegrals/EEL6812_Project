@@ -5,6 +5,7 @@ import os
 import numpy as np
 import random
 import shutil
+import argparse
 
 def shred_document(image_path, output_folder, noise_factor, shred_type):
     
@@ -76,12 +77,27 @@ def shred_document(image_path, output_folder, noise_factor, shred_type):
                 cv2.imwrite(os.path.join(document_folder, f'shredded_strip_{i+1}_{j+1}.png'), shredded_horizontal)
 
 if __name__ == "__main__":
-    noise_factor = 0.1  # factor for adding noise to the edges
-    shred_type = 'crosscut'  # crosscut or strip
-    
+    # Create argument parser to parse command line arguments
+    parser = argparse.ArgumentParser(description="Shreds an input document")
+    parser.add_argument("--shred_type", default="strip", help="Shred type (crosscut or strips)")
+    parser.add_argument("--source_dir", default="documents_to_shred", help="Path containing documents to shred")
+    parser.add_argument("--dest_dir", default=None, help="Path to save shredded documents")
+    parser.add_argument("--noise", default=0.1, help="Path to save shredded documents")
+
+    args = parser.parse_args()
+    if args.dest_dir is None:
+        args.dest_dir = f"{args.shred_type}_shredded_documents"
+
+    print("Shred Type:", args.shred_type)
+    print("Destination Directory:", args.dest_dir)
+    print("Noise Factor: ", args.noise)
+
+    # shred type
+    shred_type = args.shred_type
+    noise_factor = float(args.noise)
     # source and destination directories
-    source_dir = 'documents_to_shred'
-    destination_dir = 'crosscut_shredded_documents'
+    source_dir = args.source_dir
+    destination_dir = args.dest_dir
     
     # create destination if doesn't exist
     if not os.path.exists(destination_dir):

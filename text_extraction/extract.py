@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, ImageFilter, ImageOps
 import numpy as np
 import pytesseract
 import numpy as np
@@ -25,6 +25,9 @@ def main():
 
     # Parse arguments
     args = parser.parse_args()
+
+    # TODO: Filter the vertical lines from the reconstructed image
+    #filtered_image = filter_image(args.image_path)
 
     # Extract text from the image at the specified path
     extracted_text = extract_text(args.image_path)
