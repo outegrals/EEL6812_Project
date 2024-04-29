@@ -7,6 +7,9 @@ import torch.utils.data as data
 from torch.utils.data import DataLoader
 import os
 from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+import numpy as np
+import torchvision.models as models
 
 # Data augmentation and normalization
 transform = transforms.Compose([
@@ -25,6 +28,8 @@ val_size = len(train_dataset) - train_size
 train_data, val_data = torch.utils.data.random_split(train_dataset, [train_size, val_size])
 
 batch_size = 16
+training_loss = [0]
+training_acc = [0]
 
 train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
 val_loader = DataLoader(val_data, batch_size=batch_size, shuffle=False)
@@ -78,6 +83,7 @@ for epoch in range(num_epochs):
         
         running_loss += loss.item()  # Track loss
     
+    
     # Validation
     model.eval()  # Set model to evaluation mode
     correct = 0
@@ -91,4 +97,26 @@ for epoch in range(num_epochs):
             correct += (predicted == labels).sum().item()  # Track correct predictions
     
     accuracy = 100 * correct / total  # Calculate accuracy
+    
+    # track training loss and accuracy
+    training_loss.append(running_loss / len(train_loader))
+    training_acc.append(accuracy)
     print(f"Epoch {epoch+1}, Loss: {running_loss/len(train_loader)}, Accuracy: {accuracy}%")
+    
+    
+# plot training loss
+plt.plot(training_loss, label = 'training_loss')
+plt.title('Training Loss')
+plt.xlabel('epoch')
+plt.ylabel('loss')
+plt.legend()
+plt.show()
+
+# plot training accuracy
+plt.plot(training_acc, label = 'training_acc')
+plt.title('Training Accuracy')
+plt.xlabel('epoch')
+plt.ylabel('loss')
+plt.legend()
+plt.show()
+
