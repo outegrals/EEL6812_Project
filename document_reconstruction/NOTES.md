@@ -3,6 +3,16 @@ used https://storage.googleapis.com/google-code-archive-downloads/v2/code.google
 from https://code.google.com/archive/p/isri-ocr-evaluation-tools/downloads?page=2
 for testing so far
 
+# Order of scripts to run
+- filter_documents.py
+- shredder.py
+- create_samples.py
+- reconstruct_model.py
+- display_strip.py (optional)
+- display_crosscut.py (optional)
+
+# Notes for document_reconstruction/
+
 # filter_documents.py 
 - saves all .tif files to separate folder 'documents_to_shred'
   
