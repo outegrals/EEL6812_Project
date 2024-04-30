@@ -11,8 +11,10 @@ The purpose of this project is to be able to take in any type of shredded image 
     - Python (3.7)
     - Argparse
     - PyTorch
+    - Tensorflow
     - Scikit-learn
     - NumPy
+    - Pickle
     - Matplotlib
     - Pillow
     - Pytesseract

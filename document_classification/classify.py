@@ -1,4 +1,5 @@
 import numpy as np
+import pickle
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.preprocessing.text import Tokenizer
@@ -19,7 +20,7 @@ label_map = {
 
 # Reading file
 current_label = None
-with open('C:/Users/julit/Desktop/data.txt', 'r', encoding='utf-8') as file: # This reads from my directory, needs to specify path to dataset
+with open('dataset/data.txt', 'r', encoding='utf-8') as file: # This reads from my directory, needs to specify path to dataset
     for line in file:
         line = line.strip()
         if line.endswith('['):
@@ -88,3 +89,7 @@ plt.show()
 # Evaluation
 loss, accuracy = model.evaluate(X_test, y_test)
 print(f'Test Accuracy: {accuracy*100:.2f}%')
+
+model.save('classifier_model.h5')
+with open('tokenizer.pickle', 'wb') as handle:
+    pickle.dump(tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
